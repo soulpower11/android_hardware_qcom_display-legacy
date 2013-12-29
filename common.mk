@@ -4,6 +4,9 @@ common_includes += hardware/qcom/display-legacy/libgenlock
 common_includes += hardware/qcom/display-legacy/liboverlay
 common_includes += hardware/qcom/display-legacy/libcopybit
 common_includes += hardware/qcom/display-legacy/libqdutils
+common_includes += hardware/qcom/display-legacy/libexternal
+common_includes += hardware/qcom/display-legacy/libqservice
+common_includes += hardware/qcom/display-legacy/libvirtual
 
 ifeq ($(TARGET_USES_POST_PROCESSING),true)
     common_flags     += -DUSES_POST_PROCESSING
@@ -14,6 +17,10 @@ common_header_export_path := qcom/display-legacy
 
 #Common libraries external to display HAL
 common_libs := liblog libutils libcutils libhardware
+
+ifeq ($(TARGET_USES_POST_PROCESSING),true)
+    common_libs += libmm-abl
+endif
 
 #Common C flags
 common_flags := -DDEBUG_CALC_FPS -Wno-missing-field-initializers
