@@ -124,6 +124,7 @@ int IonController::allocate(alloc_data& data, int usage,
     data.uncached = useUncached(usage);
     data.allocType = 0;
 
+
     if(usage & GRALLOC_USAGE_PRIVATE_UI_CONTIG_HEAP)
         ionFlags |= ION_HEAP(ION_SF_HEAP_ID);
 
@@ -188,6 +189,7 @@ sp<IMemAlloc> IonController::getAllocator(int flags)
     sp<IMemAlloc> memalloc;
     if (flags & private_handle_t::PRIV_FLAGS_USES_ION) {
         memalloc = mIonAlloc;
+
     } else {
         ALOGE("%s: Invalid flags passed: 0x%x", __FUNCTION__, flags);
     }
@@ -198,7 +200,7 @@ sp<IMemAlloc> IonController::getAllocator(int flags)
 
 //-------------- PmemKernelController-----------------------//
 //XXX: Remove - we're not using pmem anymore
-#ifndef USE_ION
+#ifdef USE_PMEM_ADSP
 PmemKernelController::PmemKernelController()
 {
     mPmemAdspAlloc = new PmemKernelAlloc(DEVICE_PMEM_ADSP);

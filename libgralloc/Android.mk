@@ -47,4 +47,10 @@ else
                        pmemalloc.cpp \
                        pmem_bestfit_alloc.cpp
 endif
+ifeq ($(BOARD_USES_PMEM_ADSP),true)
+LOCAL_SRC_FILES           += ashmemalloc.cpp \
+                                 pmemalloc.cpp \
+                                 pmem_bestfit_alloc.cpp
+LOCAL_CFLAGS              += -DUSE_PMEM_ADSP
+endif
 include $(BUILD_SHARED_LIBRARY)
